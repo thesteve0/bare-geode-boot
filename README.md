@@ -19,12 +19,21 @@ started the locator
 ```commandline
 gfsh 
 
-start locator --name=mylocator
+start locator --name=mylocator --port=10336
 
-start server --name=myserver
+start server --name=myserver --server-port=40405
+
+create region --name=things --type=local
 
 ```
 
+I used non-standard ports to allow me to show how to specify the entire connection string to a remote geode locator and cache server. 
+To run this app you need to set environment variables:
+1. locator_host=localhost;
+2. locator_port=10336
+
+I used a local region since we are only spinning up one caching server and we don't care about replication, distribution, and partitioning.
+We also only care about an in-memory cache in this instance, no persistence demonstrated.
 
 TODO now we are ready for gemfire integration
 We are going to need this annotation on our main class
@@ -52,11 +61,10 @@ https://docs.spring.io/spring-data/geode/docs/current/reference/html/#bootstrap-
         3. Then a trigger in the cache will decide what do to with it
 
         This is the real article that shows how to wire it up
-        https://docs.spring.io/spring-data/geode/docs/current/reference/html/#bootstrap-annotation-config-client-server-applications
         https://tanzu.vmware.com/developer/data/tanzu-gemfire/guides/get-started-tgf4k8s-sbdg/
 
 
-        https://docs.spring.io/spring-data/geode/docs/current/reference/html/#bootstrap-annotation-config-client-server-applications
+
         https://docs.spring.io/spring-boot-data-geode-build/1.2.x/reference/html5/
         https://www.baeldung.com/spring-cache-tutorial
         https://docs.spring.io/spring-gemfire/docs/current/reference/html/#reference
