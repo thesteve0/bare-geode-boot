@@ -31,6 +31,7 @@ I used non-standard ports to allow me to show how to specify the entire connecti
 To run this app you need to set environment variables:
 1. locator_host=localhost;
 2. locator_port=10336
+These values are then captured in the resources/application.properties to point our code at the right Geode locators.
 
 I used a local region since we are only spinning up one caching server and we don't care about replication, distribution, and partitioning.
 We also only care about an in-memory cache in this instance, no persistence demonstrated.
