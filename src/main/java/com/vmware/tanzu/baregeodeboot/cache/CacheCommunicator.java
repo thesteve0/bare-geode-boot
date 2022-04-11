@@ -25,8 +25,9 @@ public class CacheCommunicator {
     // We could return void here as well
     // Why
     public void storeInCache(ThingToCache cacheThis){
-        // ??It looks like the method call should return the Value cached but when all I am getting returned is null??
-        // https://docs.spring.io/spring-data/gemfire/docs/current/api/org/springframework/data/gemfire/GemfireTemplate.html#put-K-V-
+        // While .put() can sometimes return the cached object, given our configuration it will just return null
+        // Turns out the calls here are actually just pass throughs to the underylying Geode Java API
+        // https://geode.apache.org/releases/latest/javadoc/org/apache/geode/cache/Region.html#put-K-V-
         thingsTemplate.put(cacheThis.getName(), cacheThis);
     }
 
