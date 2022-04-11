@@ -24,7 +24,7 @@ start locator --name=mylocator --port=10336 --bind-address=127.0.0.1
 
 start server --name=myserver --server-port=40405 --server-bind-address=127.0.0.1
 
-start
+create region --name=things --type=local
 ```
 
 I used non-standard ports to allow me to show how to specify the entire connection string to a remote geode locator and cache server. 

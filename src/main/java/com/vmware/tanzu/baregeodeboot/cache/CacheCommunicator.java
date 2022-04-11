@@ -9,35 +9,38 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
-//Annotate with a component so it gets added to the ApplicationContext
+//Annotate with component which adds it to the Spring ApplicationContext
 @Component
 public class CacheCommunicator {
 
-    // This gets us a handle to the automatically created template created by SpringBoot Data for Geode which we can use
-    // to interact with with our cache
+    // Inject the GemfireTemplate that corresponds to our Geode region. All interactions with the region will
+    // occur through method calls on this class
     // https://docs.spring.io/spring-data/gemfire/docs/current/api/org/springframework/data/gemfire/GemfireTemplate.html
     @Autowired
     @Qualifier("thingsTemplate")
     private GemfireTemplate thingsTemplate;
 
 
-    //Put the thing in the chase and use the name as the key
-    public Object storeInCache(ThingToCache cacheThis){
-        Object result;
-        result = thingsTemplate.put(cacheThis.getName(), cacheThis);
-        return result;
+    // Put the thing in the chase and use the name as the key
+    // We could return void here as well
+    // Why
+    public void storeInCache(ThingToCache cacheThis){
+        // ??It looks like the method call should return the Value cached but when all I am getting returned is null??
+        // https://docs.spring.io/spring-data/gemfire/docs/current/api/org/springframework/data/gemfire/GemfireTemplate.html#put-K-V-
+        thingsTemplate.put(cacheThis.getName(), cacheThis);
     }
 
 
     // Read out the cache item add the timestamp to when we read it
     public ThingToCache getFromCache(String name){
         ThingToCache result = null;
+
         //Get the thing out of the cache
         result = thingsTemplate.get(name);
 
         //Fill in the time we got it out of the cache
         result.setOutCacheTime(Instant.ofEpochMilli(System.currentTimeMillis()));
-        //add in the time we Instant we got from the cache
+
         return result;
     }
 }

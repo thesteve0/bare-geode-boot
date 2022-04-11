@@ -30,8 +30,8 @@ import java.util.ArrayList;
 // We are going to use this pattern in the properties file to allow for ease of moving between hosting platforms
 // https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config.files.property-placeholders
 
-// We add the EnableClusterDefinedRegions since we are defining our regions in gfsh. This annotation basically tells our app to map region names in
-// "names" to be used in our caching annotations.
+// We add the EnableClusterDefinedRegions since we are defining our regions in gfsh. This annotation basically tells our app to
+// map region names from our server to "names" attribute in our annotations.
 @EnableClusterDefinedRegions
 
 //Implementing CommandLineRunner allows us to add the run method below
