@@ -16,15 +16,15 @@ https://geode.apache.org/docs/guide/114/getting_started/installation/install_sta
 
 started the locator
 
+Had to add the `--bind-address=` on linux and this makes it more clear which interface to bind to. The doc says it binds to all interfaces but I was getting errors on Linux 
 ```commandline
 gfsh 
 
-start locator --name=mylocator --port=10336
+start locator --name=mylocator --port=10336 --bind-address=127.0.0.1
 
-start server --name=myserver --server-port=40405
+start server --name=myserver --server-port=40405 --server-bind-address=127.0.0.1
 
-create region --name=things --type=local
-
+start
 ```
 
 I used non-standard ports to allow me to show how to specify the entire connection string to a remote geode locator and cache server. 
@@ -34,6 +34,26 @@ To run this app you need to set environment variables:
 
 I used a local region since we are only spinning up one caching server and we don't care about replication, distribution, and partitioning.
 We also only care about an in-memory cache in this instance, no persistence demonstrated.
+
+There are 4 classes in our entire application
+1. BareGeodeBootApplication - This the main class of the Spring Boot application. It implements CommandLineRunner to enable to do a simple: create items to cache and put them in an ArrayList, iterate through the ArrayList and put them in the cache, and iterate through the ArrayList again but this time use the names in the list to pull the items out of the cache
+2. ThingToCache - This is a POJO of the objects we will read and write to the cache. 
+3. ApplicationConfiguration - This Spring configuration class is how we generate the handle to the GemfireTemplate to interact with our "things" region in Geode
+4. CacheCommunicator - This class does all the interaction with the cache
+
+TODO write some more and fill this out - the stuff below might contain links we want to use above. 
+
+
+
+
+
+
+
+
+
+
+
+
 
 TODO now we are ready for gemfire integration
 We are going to need this annotation on our main class

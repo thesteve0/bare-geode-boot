@@ -16,7 +16,7 @@ public class ThingToCache {
             Arrays.asList("Shadow","Scout","Charlie","Luna","Milo","Tiger","Maya","Frankie","Callie","Nina", "Aya",
                     "Hedy", "Disco", "Bo", "Topaz"));
 
-    private String name = names.get(random.nextInt(names.size()));
+    private String name = names.get(random.nextInt(names.size())) + " The " + random.nextInt(1,1000) ;
     private int weight = random.nextInt(4,120);
     private Instant creationTime = Instant.ofEpochMilli(System.currentTimeMillis());
     private Instant outCacheTime = null;
